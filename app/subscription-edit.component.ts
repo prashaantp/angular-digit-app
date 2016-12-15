@@ -19,6 +19,8 @@ export class SubscriptionEditComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.paramsSubsciption = this.route.params.subscribe(params => {
+            this.clearInputs();
+
             this.submittedEmail = params['email'];
             this.subscriptionService
                 .findByEmail(this.submittedEmail)
@@ -40,7 +42,7 @@ export class SubscriptionEditComponent implements OnInit, OnDestroy {
 
             this.subscriptionService
                 .updateSubscription(subscription)
-                .then((subscription: Subscription) => { window.alert(`Updated subscription for ${subscription.email}`); });
+                .then((subscription: Subscription) => { window.alert(`Updated subscription for ${subscription.email}`); this.clearInputs(); });
         } else {
             subscription = new Subscription();
             subscription.email = this.submittedEmail;
@@ -49,7 +51,12 @@ export class SubscriptionEditComponent implements OnInit, OnDestroy {
 
             this.subscriptionService
                 .createSubscription(subscription)
-                .then((subscription: Subscription) => { window.alert(`Created subscription for ${subscription.email}`); });
+                .then((subscription: Subscription) => { window.alert(`Created subscription for ${subscription.email}`); this.clearInputs(); });
         }
+    }
+
+    public clearInputs() {
+        this.submittedEmail = null;
+        this.subscription = null;
     }
 }
