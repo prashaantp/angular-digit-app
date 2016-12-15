@@ -1,0 +1,22 @@
+<h3>Your email address is {{submittedEmail}}</h3>
+<div>
+    <h3 *ngIf="subscription">You already have a subscription, starting from {{subscription.startDate | date}} for {{subscription.subscriptionDuration}} months.</h3>
+    <h3 *ngIf="!subscription">You don't have any subscription.</h3>
+</div>
+<div>
+    <form>
+        <span *ngIf="!subscription"><input type="radio" name="subscriptionType" [(ngModel)]="subscriptionType" value="new_subscription" />New subscription</span>
+        <span *ngIf="subscription"><input type="radio" name="subscriptionType" [(ngModel)]="subscriptionType" value="extend_subscription"/>Extend subscription</span>
+        <span *ngIf="subscription"><input type="radio" name="subscriptionType" [(ngModel)]="subscriptionType" value="cancel_subscription"/>Cancel subscription</span>
+    </form>
+</div>
+<br>
+<div>
+    <form>
+        <span><input type="radio" name="subscriptionDuration" [(ngModel)]="subscriptionDuration" value="1"/>1 Month</span>
+        <span><input type="radio" name="subscriptionDuration" [(ngModel)]="subscriptionDuration" value="4"/>4 Months</span>
+        <span><input type="radio" name="subscriptionDuration" [(ngModel)]="subscriptionDuration" value="12"/>12 Months</span>
+    </form>
+</div>
+<br>
+<div><button (click)="updateSubscription(subscription, subscriptionType, subscriptionDuration)">Confirm Subscription</button></div>
